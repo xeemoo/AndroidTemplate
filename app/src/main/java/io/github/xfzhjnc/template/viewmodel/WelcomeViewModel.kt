@@ -1,50 +1,43 @@
 package io.github.xfzhjnc.template.viewmodel
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.viewModelScope
 import io.github.xfzhjnc.template.data.OneRepository
 import io.github.xfzhjnc.template.data.TwoRepository
 import io.github.xfzhjnc.template.data.bean.OneDataBean
 import io.github.xfzhjnc.template.data.bean.TwoDataBean
-import io.github.xfzhjnc.template.data.network.ServerResult
+import io.github.xfzhjnc.template.data.common.BaseDataResult
+import io.github.xfzhjnc.template.data.common.StateLiveData
+import io.github.xfzhjnc.template.ui.WelcomeActivity
+import io.github.xfzhjnc.template.ui.WelcomeFragment
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
+/**
+ * The ViewModel used in [WelcomeActivity] and [WelcomeFragment]
+ */
 class WelcomeViewModel(
     private val oneRepository: OneRepository,
     private val twoRepository: TwoRepository
 ) : BaseViewModel() {
 
-    private val _testOneLiveData = MediatorLiveData<Result<ServerResult<OneDataBean>>>()
-    private val _testTwoLiveData = MutableLiveData<Result<ServerResult<TwoDataBean>>>()
+    private val _testOneLiveData = StateLiveData<OneDataBean>()
+    private val _testTwoLiveData = StateLiveData<TwoDataBean>()
 
-    val testOneLiveData: LiveData<Result<ServerResult<OneDataBean>>>
+    val testOneLiveData: LiveData<BaseDataResult<OneDataBean>>
         get() = _testOneLiveData
 
-    val testTwoLiveData: LiveData<Result<ServerResult<TwoDataBean>>>
+    val testTwoLiveData: LiveData<BaseDataResult<TwoDataBean>>
         get() = _testTwoLiveData
 
     fun fetchTestOneData() {
         viewModelScope.launch {
-            val testOneResult = try {
-                Result.success(oneRepository.fetchTestOneData())
-            } catch (e : Exception) {
-                Result.failure(e)
-            }
-
-            _testOneLiveData.value = testOneResult
+            oneRepository.fetchTestOneData(_testOneLiveData)
         }
-
     }
 
     fun fetchTestTwoData() {
         viewModelScope.launch {
-            val testTwoResult = try {
-                Result.success(twoRepository.fetchTestTwoData())
-            } catch (e : Exception) {
-                Result.failure(e)
-            }
-
-            _testTwoLiveData.value = testTwoResult
+            twoRepository.fetchTestTwoData(_testTwoLiveData)
         }
     }
 

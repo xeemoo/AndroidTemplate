@@ -6,13 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import io.github.xfzhjnc.template.data.common.DataState
 import io.github.xfzhjnc.template.databinding.FragmentWelcomeBinding
 import io.github.xfzhjnc.template.ui.base.BaseVmFragment
 import io.github.xfzhjnc.template.viewmodel.WelcomeViewModel
 
 class WelcomeFragment : BaseVmFragment<FragmentWelcomeBinding, WelcomeViewModel>() {
 
-    override fun createViewBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentWelcomeBinding {
+    override fun createViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentWelcomeBinding {
         return FragmentWelcomeBinding.inflate(inflater, container, false)
     }
 
@@ -25,18 +29,23 @@ class WelcomeFragment : BaseVmFragment<FragmentWelcomeBinding, WelcomeViewModel>
         super.onActivityCreated(savedInstanceState)
 
         mViewModel.testTwoLiveData.observe(viewLifecycleOwner, Observer { result ->
-            result.onSuccess {
-                mBinding.tvWelcome.visibility = View.VISIBLE
-            }
+            when (result.dataState) {
+                DataState.STATE_SUCCEEDED -> {
+                    mBinding.tvWelcome.visibility = View.VISIBLE
+                }
+                DataState.STATE_LOADING -> {
 
-            result.onFailure {
+                }
+                DataState.STATE_ERROR -> {
 
+                }
+                else -> {
+
+                }
             }
         })
 
         mViewModel.fetchTestTwoData()
     }
-
-
 
 }

@@ -12,9 +12,13 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initBeforeAddingContent()
+
         _binding = createViewBinding()
         setContentView(_binding.root)
     }
+
+    protected open fun initBeforeAddingContent() {}
 
     protected abstract fun createViewBinding(): VB
 

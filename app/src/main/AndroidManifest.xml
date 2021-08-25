@@ -16,7 +16,8 @@
         android:theme="@style/Theme.KeyboardWallpaper"
         tools:targetApi="n">
 
-        <activity android:name=".ui.WelcomeActivity">
+        <activity android:name=".ui.WelcomeActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

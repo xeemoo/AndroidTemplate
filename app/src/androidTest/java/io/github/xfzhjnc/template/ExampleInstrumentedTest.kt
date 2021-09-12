@@ -1,4 +1,4 @@
-package io.github.xfzhjnc
+package io.github.xfzhjnc.template
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

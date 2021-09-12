@@ -1,4 +1,4 @@
-package io.github.xfzhjnc
+package io.github.xfzhjnc.template
 
 import org.junit.Test
 

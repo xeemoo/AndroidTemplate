@@ -81,13 +81,15 @@ echo "# ${project_name}" > ./README.md
 str_default_name="QuickTemplate"
 replace_project_name_cmd=s@${str_default_name}@${project_name}@
 
-for file in $(find . -regextype posix-extended -regex ".*\.(kt|xml|java|gradle)" -o -name "proguard-rules.pro");
+#for file in $(find . -regextype posix-extended -regex ".*\.(kt|xml|java|gradle)" -o -name "proguard-rules.pro");
+for file in $(find . -name "*.kt" -o -name "*.xml" -o -name "*.java" -o -name "*.gradle" -o -name "proguard-rules.pro");
 do
-    sed -i "s/io.github.xfzhjnc.template/${package_name}/g" ${file}
-    sed -i "${replace_project_name_cmd}" ${file}
+    sed -i.tmpbak "s/io.github.xfzhjnc.template/${package_name}/g" ${file}
+    sed -i.tmpbak "${replace_project_name_cmd}" ${file}
 done
 
 rm -rf ./.git ./tools
+find . -name "*.tmpbak" | xargs rm -rf
 
 cd ..
 mv .AndroidTemplate ${project_name}

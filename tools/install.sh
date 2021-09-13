@@ -40,7 +40,8 @@ while [ $# -gt 0 ]; do
 done
 
 # Clone repo code
-git clone --depth=1 --branch "master" ${repo} ./.AndroidTemplate || {
+git clone -c core.autocrlf=false --depth=1 \
+    --branch "master" ${repo} ./.AndroidTemplate || {
     printf "git clone of ${repo} repo failed."
     finish_with_code 1
 }
@@ -61,6 +62,8 @@ if [ -z "${package_name}" ]; then
         finish_with_code 1
     fi
 fi
+
+echo -e "\033[33m Init project...\n Project name: ${project_name}\n Package name: ${package_name} \033[m"
 
 cd ./.AndroidTemplate
 
@@ -84,7 +87,10 @@ do
     sed -i "${replace_project_name_cmd}" ${file}
 done
 
+rm -rf ./.git ./tools
+
 cd ..
 mv .AndroidTemplate ${project_name}
 
+echo -e "\033[32m ------ Completed! ------ \033[m"
 finish_with_code 0

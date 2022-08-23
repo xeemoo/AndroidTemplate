@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-repo="https://hub.fastgit.org/XF-zhjnc/AndroidTemplate.git"
+repo="https://github.com/xeemoo/AndroidTemplate.git"
 project_name=""
 package_name=""
 

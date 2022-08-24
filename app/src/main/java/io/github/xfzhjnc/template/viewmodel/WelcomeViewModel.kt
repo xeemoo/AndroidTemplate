@@ -2,6 +2,7 @@ package io.github.xfzhjnc.template.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.xfzhjnc.template.data.OneRepository
 import io.github.xfzhjnc.template.data.TwoRepository
 import io.github.xfzhjnc.template.data.bean.OneDataBean
@@ -11,11 +12,13 @@ import io.github.xfzhjnc.template.data.common.StateLiveData
 import io.github.xfzhjnc.template.ui.WelcomeActivity
 import io.github.xfzhjnc.template.ui.WelcomeFragment
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  * The ViewModel used in [WelcomeActivity] and [WelcomeFragment]
  */
-class WelcomeViewModel(
+@HiltViewModel
+class WelcomeViewModel @Inject constructor(
     private val oneRepository: OneRepository,
     private val twoRepository: TwoRepository
 ) : BaseViewModel() {

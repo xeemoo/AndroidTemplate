@@ -6,23 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import dagger.hilt.android.AndroidEntryPoint
 import io.github.xfzhjnc.template.data.common.DataState
 import io.github.xfzhjnc.template.databinding.FragmentWelcomeBinding
-import io.github.xfzhjnc.template.ui.base.BaseVmFragment
+import io.github.xfzhjnc.template.ui.base.BaseFragment
 import io.github.xfzhjnc.template.viewmodel.WelcomeViewModel
 
-class WelcomeFragment : BaseVmFragment<FragmentWelcomeBinding, WelcomeViewModel>() {
+@AndroidEntryPoint
+class WelcomeFragment : BaseFragment<FragmentWelcomeBinding>() {
+
+    private val mViewModel: WelcomeViewModel by activityViewModels()
 
     override fun createViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ): FragmentWelcomeBinding {
         return FragmentWelcomeBinding.inflate(inflater, container, false)
-    }
-
-    override fun createViewModel(): WelcomeViewModel {
-        val viewModel: WelcomeViewModel by activityViewModels()
-        return viewModel
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

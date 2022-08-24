@@ -6,8 +6,11 @@ import io.github.xfzhjnc.template.data.api.BASE_URL
 import io.github.xfzhjnc.template.data.bean.OneDataBean
 import io.github.xfzhjnc.template.data.common.BaseRepository
 import io.github.xfzhjnc.template.data.common.StateLiveData
+import javax.inject.Inject
+import javax.inject.Singleton
 
-object OneRepository: BaseRepository() {
+@Singleton
+class OneRepository @Inject constructor() : BaseRepository() {
     private val apiService = ApiFactory.create(BASE_URL, ApiService::class.java)
 
     suspend fun fetchTestOneData(liveData: StateLiveData<OneDataBean>) {
